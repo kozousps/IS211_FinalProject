@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        {% if title %}
+            <title> {{ title }}</title>
+        {% else %}
+            <title> Welcome to Your Blog!</title>
+        {% endif %}
+    </head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <nav>
+        <h1>Blog time!</h1>
+        <ul>
+            <li><a href="{{ url_for('home') }}">Homepage</a></li>
+            {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('write') }}">Write</a></li>
+                <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            {% else %}
+                <li><a href="{{ url_for('register') }}">Register</a></li>
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+            {% endif %}
+
+        </ul>
+    </nav>
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block content %}
+            {% if current_user.is_authenticated %}
+                {% for post in posts %}
+                    <h2>{{ post.title }}</h2>
+                    <p> {{ post.content }}</p>
+                    <p>Posted by {{ post.blogger }}, {{ post.date.strftime('%Y/%m/%d %H:%M') }}</p>
+                {% endfor %}
+            {% else %}
+                <p> Your chance to start a blog! Register to view people's blogs!</p>
+            {% endif %}
+        {% endblock %}
+    </main>
+</html>

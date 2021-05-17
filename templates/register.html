@@ -1,0 +1,23 @@
+{% extends "home.html" %}
+{% block content%}
+    <h2> Register</h2>
+    <div>
+        <form action="" method="POST">
+            {{ form.hidden_tag() }}
+            <fieldset>
+                <legend>Register</legend>
+                <div>
+                    {{ form.username.label() }}
+                    {{ form.username() }} (5-20 characters)
+                </div>
+                <div>
+                    {{ form.password.label() }}
+                    {{ form.password() }}
+                </div>
+            </fieldset>
+            <div>
+                {{ form.submit() }}
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "home.html" %}
+{% block content %}
+    <h2> New Post! </h2>
+    <div>
+        <form action="" method="POST">
+            {{ form.hidden_tag() }}
+            <fieldset>
+                <legend>Post</legend>
+                <div>
+                    {{ form.title.label() }}
+                    <br>
+                    {{ form.title() }}
+                </div>
+                <div>
+                    {{ form.blog.label() }}
+                    <br>
+                    {{ form.blog() }}
+                </div>
+            </fieldset>
+            <div>
+                {{ form.submit() }}
+            </div>
+        </form>
+    </div>
+{% endblock %}
